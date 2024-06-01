@@ -1,0 +1,29 @@
+{
+  "name": "random-names",
+  "private": true,
+  "version": "0.0.1",
+  "main": "dist/random-names.js",
+  "description": "随机生成中文姓名，参考百家姓和古诗词",
+  "type": "module",
+  "keywords": [
+    "name",
+    "lorem",
+    "fake"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "pnpm dlx vite-node ./prepare/main.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.13.0",
+    "@types/opencc-js": "^1.0.3",
+    "fast-csv": "^5.0.1",
+    "opencc-js": "^1.0.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  },
+  "packageManager": "pnpm@9.1.4",
+  "license": "MIT"
+}

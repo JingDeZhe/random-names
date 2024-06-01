@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>随机姓名</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.bootcdn.net/ajax/libs/picocss/2.0.6/pico.amber.css"
+    />
+    <style>
+      @font-face {
+        font-family: lxgw;
+        src: local('LXGW WenKai'), url('/fonts/LXGWWenKaiGBScreen.woff2');
+      }
+
+      body {
+        font-family: lxgw, serif;
+      }
+
+      #name-list {
+        margin-top: 1rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 6rem);
+        gap: 0.5rem;
+      }
+
+      #name-list > div {
+        padding: 6px;
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>随机姓名</h1>
+      <p>
+        就是从百家姓和古诗词中随机生成的姓名而已，诗词好听故而随机的名字也可能好听，力大砖飞而已。
+      </p>
+      <p><button id="export-btn">导出一千个随机名称</button></p>
+      <p><input type="range" min="1" max="100" id="count-input" /></p>
+      <section><div id="name-list"></div></section>
+    </main>
+    <script src="https://cdn.bootcdn.net/ajax/libs/FileSaver.js/2.0.5/FileSaver.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.11.11/dayjs.min.js"></script>
+    <script type="module">
+      import { randomName } from './random-names.js'
+      const exportBtn = document.getElementById('export-btn')
+      const countInput = document.getElementById('count-input')
+      const nameList = document.getElementById('name-list')
+      const defaultCount = 10
+      countInput.value = `${defaultCount}`
+
+      exportBtn.addEventListener('click', () => {
+        const t = []
+        for (let i = 0; i < 1000; i++) {
+          t.push(randomName())
+        }
+        saveAs(
+          new Blob([t.join('\n')]),
+          `一千个随机姓名-${dayjs().format('YYYY-MM-DD_HH-MM-ss')}.txt`
+        )
+      })
+
+      countInput.addEventListener('change', (e) => {
+        const total = +e.target.value || defaultCount
+        refresh(total)
+      })
+
+      const refresh = (n) => {
+        const list = []
+        for (let i = 0; i < n; i++) {
+          list.push(randomName(Math.random() < 0.3 ? 1 : 2))
+        }
+        nameList.innerHTML = list.map((v) => `<div>${v}</div>`).join('')
+      }
+
+      refresh(defaultCount)
+    </script>
+  </body>
+</html>
