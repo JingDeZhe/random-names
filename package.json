@@ -1,5 +1,5 @@
 {
-  "name": "random-names",
+  "name": "@lo/random-names",
   "version": "0.0.1",
   "main": "dist/random-names.js",
   "description": "随机生成中文姓名，参考百家姓和古诗词",
